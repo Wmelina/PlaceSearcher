@@ -13,13 +13,16 @@
         <!--Карта-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
-                <viewController id="9pv-A4-QxB" customClass="MapViewController" customModule="PlaceSearcher_Test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="9pv-A4-QxB" customClass="MapViewController" customModule="PlaceSearcher" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tsR-hK-woN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="EcS-FN-rUb">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EcS-FN-rUb">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <connections>
+                                    <outlet property="delegate" destination="9pv-A4-QxB" id="5Oa-Ru-DHe"/>
+                                </connections>
                             </mapView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Pfs-xr-q0B">
                                 <rect key="frame" x="16" y="590" width="343" height="29"/>
@@ -46,6 +49,10 @@
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Карта" image="first" id="acW-dT-cKf"/>
+                    <connections>
+                        <outlet property="map" destination="EcS-FN-rUb" id="hfn-O0-Dfk"/>
+                        <outlet property="placeType" destination="Pfs-xr-q0B" id="0O3-QC-fOS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
@@ -54,7 +61,7 @@
         <!--Добавить-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="AddingViewController" customModule="PlaceSearcher_Test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8rJ-Kc-sve" customClass="AddingViewController" customModule="PlaceSearcher" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -78,7 +85,12 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="amA-Li-t6m"/>
                                 </constraints>
-                                <state key="normal" title="Опубликовать"/>
+                                <state key="normal" title="Опубликовать">
+                                    <color key="titleShadowColor" red="0.58188301320000002" green="0.21569153669999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="postToDB:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="0a9-mO-nvJ"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Название" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UPp-Mt-sts">
                                 <rect key="frame" x="16" y="250.5" width="343" height="30"/>
@@ -87,7 +99,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.46202266219999999" green="0.83828371759999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="7ts-Vl-VBK" firstAttribute="top" secondItem="UPp-Mt-sts" secondAttribute="bottom" constant="38" id="0fo-ey-6Zq"/>
                             <constraint firstItem="UPp-Mt-sts" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="16" id="8cU-Z1-5TY"/>
@@ -106,6 +118,11 @@
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Добавить" image="first" id="cPa-gy-q4n"/>
+                    <connections>
+                        <outlet property="info" destination="7ts-Vl-VBK" id="GEB-Pm-4jX"/>
+                        <outlet property="name" destination="UPp-Mt-sts" id="Mxz-e0-37w"/>
+                        <outlet property="typeTrigger" destination="8fe-cN-Bzv" id="Ge0-8S-MIJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
@@ -114,7 +131,7 @@
         <!--Настройка-->
         <scene sceneID="ju9-tr-D7u">
             <objects>
-                <viewController id="4N3-kB-kpf" customClass="SettingsViewController" customModule="PlaceSearcher_Test" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="4N3-kB-kpf" customClass="SettingsViewController" customModule="PlaceSearcher" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pqv-Tm-Ua0">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -7,12 +7,30 @@
 		<key>PlaceSearcher.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>9</integer>
 		</dict>
 		<key>PlaceSearcher_Test.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>98F0E4952152385E004098A9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>98F0E4AB2152385F004098A9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>98F0E4B621523860004098A9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>
