@@ -10,7 +10,7 @@ import UIKit
 import FirebaseDatabase
 import MapKit
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     var locationManager = CLLocationManager()
     @IBOutlet weak var map: MKMapView!
@@ -18,8 +18,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        map.delegate = self
         map.showsUserLocation = true
-        addMarkOnMap(latitude: 35.7020691, longitude: 139.7753268, title: "MARAKANA", subtitle: "Pomoika dlya daunov", type: 0)
+        addMarkOnMap(latitude: 35.7020693, longitude: 139.77490, title: "MARAKANA", subtitle: "Pomoika dlya daunov", type: 0)
+        addMarkOnMap(latitude: 35.7020692, longitude: 139.77566, title: "MARAKANA", subtitle: "Pomoika dlya daunov", type: 1)
+
         self.locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
@@ -47,13 +50,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         map.setRegion(region, animated: false)
         let annotation = MKPointAnnotation()
         annotation.coordinate = location
-        annotation.title = title
-        annotation.subtitle = subtitle
-        
+        if type == 0 {
+            annotation.title = "event"
+        } else if type == 1 {
+            annotation.title = "place"
+        } else if type == 2 {
+            annotation.title = "warning"
+        }
+        annotation.subtitle = "\(title), \(subtitle)"
         map.addAnnotation(annotation)
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
         print(locValue.latitude)
         print(locValue.longitude)
@@ -63,6 +72,25 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         
     }
 
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        var annotationView = map.dequeueReusableAnnotationView(withIdentifier: "custom")
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "custom")
+        }
+        
+        if let type = annotation.title, type == "place" {
+            annotationView?.image = UIImage(named: "home")
+        } else if let type = annotation.title, type == "event" {
+            annotationView?.image = UIImage(named: "blue")
+        } else if let type = annotation.title, type == "warning" {
+            annotationView?.image = UIImage(named: "red")
+        } else if annotation === mapView.userLocation {
+            annotationView?.image = UIImage(named: "mark")
+        }
+        annotationView?.canShowCallout = true
+        
+        return annotationView
+    }
     /*
     // MARK: - Navigation
 
